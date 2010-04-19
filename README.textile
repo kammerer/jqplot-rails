@@ -1,0 +1,65 @@
+h1. jqPlot-rails
+
+"jqPlot":http://www.jqplot.com is an excellent javascript charting library based on "jQuery":http://jquery.com. jqPlot-rails is a wrapper plugin which makes using it in RoR somewhat easier.
+
+h1. Installation
+
+Install the plugin:
+
+bq. script/plugin install git://github.com/kammerer/jqplot-rails.git
+
+Copy required files to public directory:
+
+bq. rake jqplot:install
+
+Copied files include jQuery library and jqPlot itself (it consists of several javascript files and one CSS file).
+
+Add following includes to your layout (view template examples use "Haml":http://haml-lang.com/ syntax):
+
+<pre>
+<code>
+  /[if IE]
+    = javascript_include_tag "excanvas.min.js"
+
+  = javascript_include_tag "jquery-1.3.2.min"
+  = javascript_include_tag "jqplot/jquery.jqplot.min"
+
+  = stylesheet_link_tag "jqplot/jquery.jqplot.min"
+</code>
+</pre>
+
+Optionally add includes for jqPlot plugins:
+
+<pre>
+<code>
+  = javascript_include_tag "jqplot/plugins/jqplot.barRenderer.min"
+  = javascript_include_tag "jqplot/plugins/jqplot.categoryAxisRenderer.min"
+</code>
+</pre>
+
+h1. Usage
+
+In your view you can do this to plot a chart:
+
+<pre>
+<code> 
+  #chart
+  = javascript_tag
+   = update_page do |page|
+     - page << plot('chart', [[[0, 0], [1, 2], [2, 5], [3, 1]]],
+                    :seriesDefaults => { :color => "#a55" })
+</code>
+</pre>
+
+All options should be passed as pure Ruby code - they will be converted to proper javascript.
+
+In order to specify a renderer use <code>plot_renderer</code> helper:
+
+<pre>
+<code>
+  plot('chart', data, :series_defaults => { :renderer => plot_renderer(:bar) },
+                      :axes => { :xaxis => { :renderer => plot_renderer(:category_axis) } })
+</code>
+</pre>
+
+For detailed explanation of all available options consult "jqPlot documentation":http://www.jqplot.com/docs
