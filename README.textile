@@ -1,5 +1,7 @@
 h1. jqPlot-rails
 
+*NOTE* This is a Rails 2.x plugin and as such is outdated now!
+
 "jqPlot":http://www.jqplot.com is an excellent javascript charting library based on "jQuery":http://jquery.com. jqPlot-rails is a wrapper plugin which makes using it in RoR somewhat easier.
 
 h1. Installation
